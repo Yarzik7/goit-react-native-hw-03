@@ -7,6 +7,11 @@ const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, setIsKeybo
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+   const onSubmit = () => {
+     const data = { email, password };
+     console.log(data);
+   };
+
   return (
     <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 111 }}>
       <Text style={styles.title}>Увійти</Text>
@@ -29,7 +34,7 @@ const LoginScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, setIsKeybo
         />
 
         {!isKeyboardShow && (
-          <AuthAction activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+          <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
         )}
       </View>
     </View>

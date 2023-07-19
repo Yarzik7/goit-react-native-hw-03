@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "goit-react-native-hw-02",
-    "slug": "goit-react-native-hw-02",
+    "name": "goit-react-native-hw-03",
+    "slug": "goit-react-native-hw-03",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.yarzik7.goitreactnativehw02"
+      "package": "com.yarzik7.goitreactnativehw03"
     },
     "web": {
       "favicon": "./assets/favicon.png"

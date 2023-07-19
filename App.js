@@ -7,6 +7,7 @@ import {
   Keyboard,
   Platform,
   useWindowDimensions,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './src/screens/RegistrationScreen';
@@ -38,6 +39,7 @@ const App = () => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
         <View style={{ height: height * 1.05 }}>
           <ImageBackground source={background} resizeMode="cover" style={styles.image} />
@@ -63,6 +65,7 @@ const App = () => {
           )}
         </KeyboardAvoidingView>
       </View>
+    </TouchableWithoutFeedback>
   );
 };
 
