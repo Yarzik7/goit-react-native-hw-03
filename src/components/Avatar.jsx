@@ -1,14 +1,41 @@
 import { StyleSheet, View, TouchableOpacity, Image } from 'react-native';
-import addButton from '../assets/add.png';
-import deleteButton from '../assets/delete.png';
-import avatar from '../assets/avatar.jpg';
+import * as ImagePicker from 'expo-image-picker';
+import { AntDesign } from '@expo/vector-icons';
+import { useState } from 'react';
+import color from '../constants/colors';
+const { accentColor, white, backgroundColor, borderColor, shadowColor } = color;
 
-const Avatar = ({ isKeyboardShow }) => {
+const Avatar = () => {
+  const [avatarPath, setAvatarPath] = useState(null);
+
+  const onAvatarAction = async () => {
+    if (avatarPath) {
+      setAvatarPath(null);
+      return;
+    }
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setAvatarPath(result.assets[0].uri);
+      }
+    } catch (error) {
+      console.log(`Error: ${error}`);
+    }
+  };
+
   return (
     <View style={styles.avatarContainer}>
-      <Image source={isKeyboardShow ? avatar : 0} resizeMode="cover" style={styles.avatar} />
-      <TouchableOpacity style={styles.actionImageButton}>
-        <Image source={isKeyboardShow ? deleteButton : addButton} style={styles.actionImage} />
+      <Image source={{ uri: avatarPath }} resizeMode="cover" style={styles.avatar} />
+      <TouchableOpacity
+        style={[styles.actionImageButton, avatarPath && styles.deleteImageButton]}
+        onPress={onAvatarAction}
+      >
+        <AntDesign name="pluscircleo" size={25} color={avatarPath ? borderColor : accentColor} />
       </TouchableOpacity>
     </View>
   );
@@ -20,7 +47,7 @@ const styles = StyleSheet.create({
     marginTop: -60,
     width: 120,
     height: 120,
-    backgroundColor: '#F6F6F6',
+    backgroundColor,
     borderRadius: 16,
   },
   avatar: {
@@ -34,10 +61,17 @@ const styles = StyleSheet.create({
     right: -12,
     width: 25,
     height: 25,
+    borderRadius: 50,
+    backgroundColor: 'transparent',
   },
-  actionImage: {
-    width: '100%',
-    height: '100%',
+  deleteImageButton: {
+    transform: [{ rotate: '45deg' }],
+    backgroundColor: white,
+    shadowOffset: { width: 0, height: 4 },
+    shadowRadius: 4,
+    shadowOpacity: 1,
+    shadowColor,
+    elevation: 7,
   },
 });
 

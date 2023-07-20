@@ -3,79 +3,54 @@ import Avatar from '../components/Avatar';
 import AuthInput from '../components/AuthInput';
 import AuthAction from '../components/AuthAction';
 import { useState } from 'react';
+import color from '../constants/colors';
+const { secondaryTextColor } = color;
 
-const RegistrationScreen = ({ isKeyboardShow, activeScreen, setActiveScreen, setIsKeyboardShow }) => {
+const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onSubmit = () => {
-    const data = { login, email, password };
-    console.log(data);
-  }
+   const onSubmit = () => {
+     const userData = { login, email, password };
+     console.log(userData);
+   };
 
   return (
-    <View style={{ ...styles.container, paddingBottom: isKeyboardShow ? 32 : 45 }}>
-      <Avatar isKeyboardShow={isKeyboardShow} />
+    <>
+      <Avatar />
 
       <Text style={styles.title}>Реєстрація</Text>
 
       <View style={styles.authForm}>
-        <AuthInput
-          type={'text'}
-          value={login}
-          placeholder={'Логін'}
-          onChange={setLogin}
-          setIsKeyboardShow={setIsKeyboardShow}
-        />
+        <AuthInput type={'text'} value={login} placeholder={'Логін'} onChange={setLogin} />
 
         <AuthInput
           type={'email'}
           value={email}
           placeholder={'Адреса електронної пошти'}
           onChange={setEmail}
-          setIsKeyboardShow={setIsKeyboardShow}
         />
 
-        <AuthInput
-          type={'password'}
-          value={password}
-          placeholder={'Пароль'}
-          onChange={setPassword}
-          setIsKeyboardShow={setIsKeyboardShow}
-        />
-
-        {!isKeyboardShow && (
-          <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-        )}
+        <AuthInput type={'password'} value={password} placeholder={'Пароль'} onChange={setPassword} />
+        <AuthAction onSubmit={onSubmit} activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingBottom: 45,
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderTopRightRadius: 25,
-    borderTopLeftRadius: 25,
-  },
   title: {
-    marginTop: 32,
-    marginBottom: 33,
+    marginVertical: 32,
     fontFamily: 'Roboto-Medium',
     fontWeight: '500',
     fontSize: 30,
     lineHeight: 35,
+    color: secondaryTextColor,
   },
   authForm: {
     width: '100%',
     gap: 16,
-    backgroundColor: '#FFFFFF',
   },
 });
 

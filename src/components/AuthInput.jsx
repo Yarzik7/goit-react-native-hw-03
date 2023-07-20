@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { View, TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import color from '../constants/colors';
+const { linkColor, accentColor, white, backgroundColor, borderColor, secondaryTextColor } = color;
 
-const AuthInput = ({ type, placeholder, value, onChange, setIsKeyboardShow }) => {
+const AuthInput = ({ type, placeholder, value, onChange }) => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const isPasswordType = type === 'password';
 
-  const onFocus = () => {
-    setIsKeyboardShow(true);
-    setIsInputFocused(true);
-  };
+  const onFocus = () => setIsInputFocused(true);
 
   const onBlur = () => setIsInputFocused(false);
 
@@ -22,11 +21,8 @@ const AuthInput = ({ type, placeholder, value, onChange, setIsKeyboardShow }) =>
         value={value}
         placeholder={placeholder}
         inputMode={isPasswordType ? 'text' : type}
-        style={{
-          ...styles.authInput,
-          borderColor: isInputFocused ? '#FF6C00' : '#E8E8E8',
-        }}
-        cursorColor="#FF6C00"
+        style={[styles.authInput, isInputFocused && styles.authInputFocused]}
+        cursorColor={accentColor}
         secureTextEntry={isPasswordType ? !isShowPassword : false}
         onChangeText={onChange}
         onFocus={onFocus}
@@ -46,15 +42,19 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   authInput: {
-    backgroundColor: '#F6F6F6',
+    backgroundColor,
     height: 50,
-    paddingLeft: 16,
-    paddingRight: 16,
+    paddingHorizontal: 16,
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
+    color: secondaryTextColor,
     borderWidth: 1,
-    borderColor: '#E8E8E8',
+    borderColor,
     borderRadius: 8,
+  },
+  authInputFocused: {
+    backgroundColor: white,
+    borderColor: accentColor,
   },
   showPasswordButton: {
     position: 'absolute',
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     textAlign: 'center',
-    color: '#1B4371',
+    color: linkColor,
   },
 });
 
