@@ -7,18 +7,23 @@ import color from '../constants/colors';
 const { secondaryTextColor } = color;
 
 const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
+  const [avatarPath, setAvatarPath] = useState(null);
   const [login, setLogin] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-   const onSubmit = () => {
-     const userData = { login, email, password };
+  const onSubmit = () => {
+    if (!login || !email || !password) {
+      console.log('Заповніть будь ласка всі поля!');
+      return;
+    }
+     const userData = { login, email, password, avatarPath };
      console.log(userData);
    };
 
   return (
     <>
-      <Avatar />
+      <Avatar avatarPath={avatarPath} setAvatarPath={setAvatarPath} />
 
       <Text style={styles.title}>Реєстрація</Text>
 

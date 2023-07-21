@@ -10,9 +10,13 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [password, setPassword] = useState('');
 
   const onSubmit = () => {
-    const userData = { email, password }
+    if (!email || !password) {
+      console.log('Заповніть будь ласка всі поля!');
+      return;
+    }
+    const userData = { email, password };
     console.log(userData);
-  }
+  };
 
   return (
     <>
@@ -40,7 +44,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 30,
     lineHeight: 35,
-    color: secondaryTextColor
+    color: secondaryTextColor,
   },
   authForm: {
     width: '100%',

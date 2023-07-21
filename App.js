@@ -38,15 +38,20 @@ const App = () => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={activeScreen === 'login' ? -208 : -142}
       >
-        <ImageBackground source={backgroundImage} resizeMode="cover" style={{ height: fullHeight }} />
-
-        <View style={[styles.authContainer, activeScreen === 'login' && styles.paddingLogin]}>
-          {activeScreen === 'login' ? (
-            <LoginScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-          ) : (
-            <RegistrationScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
-          )}
-        </View>
+        <ImageBackground
+          source={backgroundImage}
+          resizeMode="cover"
+          imageStyle={{ height: fullHeight }}
+          style={styles.backgroundView}
+        >
+          <View style={[styles.authContainer, activeScreen === 'login' && styles.paddingLogin]}>
+            {activeScreen === 'login' ? (
+              <LoginScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+            ) : (
+              <RegistrationScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
+            )}
+          </View>
+        </ImageBackground>
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>
   );
@@ -54,15 +59,16 @@ const App = () => {
 
 const styles = StyleSheet.create({
   authContainer: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
     paddingHorizontal: 16,
     paddingBottom: 45,
     alignItems: 'center',
     backgroundColor: colors.white,
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
+  },
+  backgroundView: {
+    height: '100%',
+    justifyContent: 'flex-end'
   },
   paddingLogin: {
     paddingBottom: 111,
