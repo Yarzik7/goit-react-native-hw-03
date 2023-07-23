@@ -9,6 +9,11 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+const reset = () => {
+  setEmail('');
+  setPassword('');
+};
+
   const onSubmit = () => {
     if (!email || !password) {
       console.log('Заповніть будь ласка всі поля!');
@@ -16,7 +21,10 @@ const LoginScreen = ({ activeScreen, setActiveScreen }) => {
     }
     const userData = { email, password };
     console.log(userData);
+    reset();
   };
+
+  
 
   return (
     <>

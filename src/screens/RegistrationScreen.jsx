@@ -12,14 +12,22 @@ const RegistrationScreen = ({ activeScreen, setActiveScreen }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const reset = () => {
+    setLogin('');
+    setEmail('');
+    setPassword('');
+    setAvatarPath(null);
+  };
+
   const onSubmit = () => {
     if (!login || !email || !password) {
       console.log('Заповніть будь ласка всі поля!');
       return;
     }
-     const userData = { login, email, password, avatarPath };
-     console.log(userData);
-   };
+    const userData = { login, email, password, avatarPath };
+    console.log(userData);
+    reset();
+  };
 
   return (
     <>

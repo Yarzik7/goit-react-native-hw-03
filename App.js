@@ -5,8 +5,6 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
-  useWindowDimensions,
-  StatusBar,
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
@@ -18,7 +16,6 @@ import colors from './src/constants/colors';
 const backgroundImage = require('./src/assets/background.jpg');
 
 const App = () => {
-  const { height } = useWindowDimensions();
   const [activeScreen, setActiveScreen] = useState('signUp');
   const [fontsLoaded] = useFonts({
     'Roboto-Regular': require('./src/assets/fonts/Roboto/Roboto-Regular.ttf'),
@@ -30,20 +27,14 @@ const App = () => {
     return null;
   }
 
-  const fullHeight = Math.ceil(height + StatusBar.currentHeight ?? 0);
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={activeScreen === 'login' ? -208 : -142}
+        style={styles.container}
       >
-        <ImageBackground
-          source={backgroundImage}
-          resizeMode="cover"
-          imageStyle={{ height: fullHeight }}
-          style={styles.backgroundView}
-        >
+        <ImageBackground source={backgroundImage} resizeMode="cover" style={styles.backgroundView}>
           <View style={[styles.authContainer, activeScreen === 'login' && styles.paddingLogin]}>
             {activeScreen === 'login' ? (
               <LoginScreen activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
@@ -58,6 +49,9 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   authContainer: {
     paddingHorizontal: 16,
     paddingBottom: 45,
@@ -67,8 +61,8 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
   },
   backgroundView: {
-    height: '100%',
-    justifyContent: 'flex-end'
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   paddingLogin: {
     paddingBottom: 111,
